@@ -1,0 +1,34 @@
+//============================================================================
+// Name        : CONG.cpp
+// Author      : 
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+#include <math.h>       /* sqrt */
+
+int main() {
+	int fheight; // your height feets
+	int iheight; // your height inches
+	cin >> fheight;
+	cin >> iheight;
+	int height;
+	height = fheight*12+iheight;
+	double y; // computer y
+	// we know mu is 65.5 and sigma is 2.5
+	y = (height-65.5)/(2.5* sqrt (2));
+    double erf; // computer erf
+    double pi = 3.141592653589793238462643383279502884;
+    erf = 2*(y-(pow(y,3)/3)+(pow(y,5)/10)-(pow(y,7)/42)+(pow(y,9)/216))/(sqrt(pi));
+    double prob;
+    prob = 0.5*(1+erf);
+    double precentile;
+    precentile =100*prob;
+
+
+	cout << "Your height percentile is "<< precentile << endl;
+	return 0;
+}
