@@ -1,0 +1,64 @@
+//============================================================================
+// Name        : Lecture.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description : C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int role() { return rand() % 6 +1;} // result return the result which is from 0 to 5 and plus 1. IE 1 TO 6
+
+int main() {
+    srand(time(0));
+	int comp_allow, you_allow; comp_allow = you_allow=100;
+
+	while (true){
+	      // computer throws 2 dice (-> Computer) shows to you
+	      int comp =role() + role();
+	      cout << "Comp got : " << comp <<endl << "how much are you going to bet: ";
+
+          // you bet some amount
+	      int bet; cin >> bet;
+	      //you throw (done by computer) (-> You)
+	      int you = role() + role();
+          cout << "YOU GOT:" << you << endl;
+
+          // if you win(you > computer) the you get money
+
+          if (you > comp) {
+        	  cout << "YOU WIN!" <<endl;
+        	  you_allow += bet; // same with = you_allow +bet;
+        	  comp_allow -= bet;
+        	  if (comp_allow <= 0) break;
+          }
+          else if (you < comp) {
+        	  cout << "YOU LOST!" << endl;
+        	  you_allow -= bet;
+        	  comp_allow += bet;
+        	  if (you_allow <=0) break;
+          }
+          else cout << "Tied..." << endl;
+	}
+	cout << "Bye-Bye..." << endl;
+
+
+	return 0;
+}
+
+
+
+
+
+#if 0
+	srand(time(0));
+	cout << rand() % 6 +1 << endl;
+	cout << rand() % 6 +1 << endl;
+	cout << rand() % 6 +1 << endl;
+	cout << rand() % 6 +1 << endl;
+	cout << rand() % 6 +1 << endl;
+#endif
