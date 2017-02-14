@@ -1,0 +1,64 @@
+//============================================================================
+// Name        : Lab14.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+// Problem 1 is about Fibonacci number
+void p1()
+{
+ int number;
+ cin >> number;
+ int frist =0; int second=1;
+ int next;
+ for (int i=0; i<= number; i++)
+ {
+  if (i <= 1)
+   next = i;
+  else
+  {
+   next =frist +second;
+   frist = second;
+   second = next;
+  }
+  //cout << next << endl; if you want to print every Fibonacci series
+ }
+ cout << next << endl;
+}
+
+// Problem 2 is determine a number is a power of 2.
+void p2()
+{
+int number;
+cin >> number;
+//int i=1; // the counter for the power of 2 if the number is.
+if(number == 1)
+ cout << "this number is a power of 2" << endl;
+else
+while (number % 2 == 0){
+ number = number/2;
+ if (number == 1)
+  cout << "this number is a power of 2" << endl;
+ //i++;
+    }
+cout << "this number is not a power of 2" << endl;
+}
+
+// Problem 3 is let computer to guess a number  X, where 1<=X<=100.
+void p3()
+{
+int number;
+cin >> number;
+
+}
+int main() {
+ //p1();
+ p2();
+ p3();
+ return 0;
+}
