@@ -1,0 +1,38 @@
+//============================================================================
+// Name : leb21.cpp
+// Author : CONG JIANG
+// Version :
+// Copyright : Your copyright notice
+// Description : 
+//============================================================================
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+// Given a series of number, 0,1,2..n, find the missing number.
+int main() {
+int n;
+cin >> n; // generate the n numbers series;
+int sum=0;
+int series[n];
+for(int i=0; i<=n; i++){
+series[i]= i;
+sum += series[i];
+}
+cout <<"total sum is " << sum << endl;
+int k = rand()%(n+1); // choose a number from 0 to n; in order to choose this number is missing one
+cout << "we randomly choose the missing number is "<<k << endl;
+int sum1=0;
+for (int j=0; j <k; j++){
+sum1 +=series[j];
+}
+cout << "sum of values before the missing value :sum1 is "<< sum1 << endl; // computer the sum of values before the missing value
+int sum2=0;
+for (int j=k+1; j<=n; j++){
+sum2 +=series[j];
+}
+cout << "sum of values after the missing value :sum2 is "<< sum2 << endl; //computer the sum of values after the missing value
+int d= sum- sum1-sum2;
+cout << "the missing value is"<<d << endl;
+return 0;
+}
