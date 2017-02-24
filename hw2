@@ -1,3 +1,68 @@
 You and computer have $3,000 allowance each. Computer rolls two dice. Score of the same face value is 100 times more such as 1:1 = 100, 2:2 = 200, and 3:3 = 300. Otherwise, the higher face value is read as the tens digit of a two-digit number and the lower face value as the ones digit. For instance 2:4 = 42 and 1:5 is 51. The 21 is called "Mexico" and scores 1,000. Therefore, the lowest score is 31.
 You roll next (your program logic will generates your turn). The difference of the two scores will be awarded to the one rolled a higher value. For instance, in the first round, computer rolled 3 and 4 (scored 43) and you rolled 5 and 5 (scored 500), you would be awarded $467, and so the allowance of you and computer becomes $3,467 and $2,533 respectively.
 The problem is that computer may lie to you (with 5% probability) in that it tells it has gotten "Mexico!" even it doesn't. Then, you can challenge or accept it. If you challenge and you see Mexico indeed, then you loose $1,500, otherwise computer looses $1,500. If you accept, then the offset of your score and computer's 1,000 will be reflected. Can you win?
+
+
+//============================================================================
+// Name        : JIANG2.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int role() {
+	return rand() % 6+1; // return the result which is from 1~5 and plus 1. that is 1~6;
+}
+
+int main() {
+	srand(time(0));
+	int comp_allow, you_allow; comp_allow = you_allow = 3000;
+
+// computer throws 2 times dice
+	int com1, com2, comp_scores;
+	com1=role();
+	com2=role();
+
+	if (com1 == com2){ comp_scores =100*com1;}
+	else if(com1 > com2) {comp_scores = 10*com1+com2;}
+	else comp_scores =10*com2+com1;
+	cout << "Computer rolled " << comp_scores << "..." << endl;
+	if(comp_scores == 12){comp_scores =1000; 	cout << "You rolled Mexico ! " << "..." << endl;} // computer got Mexico!!!
+
+// You trows 2 times dice
+	int you1, you2, you_scores;
+	you1=role();
+	you2=role();
+
+	if (you1 == you2){ you_scores =100*com1;}
+	else if(you1 > you2) {you_scores = 10*com1+com2;}
+	else you_scores =10*you2+you1;
+	cout << "You rolled " << you_scores << "..." << endl;
+	if(you_scores == 12){you_scores =1000; 	cout << "You rolled Mexico ! " << "..." << endl;} // you got Mexico!!!
+
+// compare computer scores and you scores, and change the allowance
+
+#if 0
+	if (you_scores > comp_scores){
+		you_allow = you_allow + (you_scores - comp_scores);
+		comp_allow =comp_allow -(you_scores - comp_scores);
+	}
+	else 		you_allow = you_allow +(you_scores - comp_scores);     // since (you_scores - comp_scores) is less than 0. and we can thing more about: can we omit if statement here?
+	            comp_allow = comp_allow - (you_scores - comp_scores);
+	cout << "Allowance: " << "computer1 $" << comp_allow << "," << "you1 $" << you_allow << "..." << endl;
+#endif
+
+// after careful thing, you can directly computer the allowence
+	you_allow = you_allow + (you_scores - comp_scores);
+	comp_allow =comp_allow -(you_scores - comp_scores);
+	cout << "Allowance: " << "computer $" << comp_allow << "," << "you $" << you_allow << "..." << endl;
+
+
+	return 0;
+}
