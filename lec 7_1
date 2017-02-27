@@ -1,0 +1,35 @@
+//============================================================================
+// Name        : Lec7.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description : number finding game
+//============================================================================
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+// number finding game. Computer generates one number; you find it.
+int main() {
+	int target = rand() % 100; // value form [0,99]
+	while(true) {
+		cout << "Enter gte/lte/ans (space) number: " << endl;  // grater than equal (gte)& less than equal
+		string op; int num;
+		cin >> op >>num;
+		if(op =="gte"){
+			if(target >= num){cout << "Yep."<< endl;}
+			else cout << "Nope."<< endl;
+		}
+		else if (op == "lte"){
+			if(target <= num){cout << "Yep."<< endl;}
+					else cout << "Nope."<< endl;
+		}
+		else if (op == "ans"){
+			if(target == num) {cout << "Congrat!" << endl;}
+			else cout << "Nope!"<< endl;
+		}
+		else {cout << "Wrong operation, do again ..." << endl;}
+		}
+	return 0;
+}
