@@ -26,10 +26,12 @@ int main() {
 					else cout << "Nope."<< endl;
 		}
 		else if (op == "ans"){
-			if(target == num) {cout << "Congrat!" << endl;}
+			if(target == num) {cout << "Congrat!" << endl; break;}
 			else cout << "Nope!"<< endl;
 		}
 		else {cout << "Wrong operation, do again ..." << endl;}
 		}
+	cout <<"Bye Bye..."<< endl;
 	return 0;
 }
+
