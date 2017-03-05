@@ -1,0 +1,41 @@
+//============================================================================
+// Name        : Lec8.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description :Buffon's Needle
+//============================================================================
+#include <iostream>
+#include <cmath>
+#include <cstdlib>
+#include <iomanip>
+using namespace std;
+
+double drand(){ // this returns 0 through 1. including 1;
+	return (double) rand() / RAND_MAX;     // range is from 0 to 1;  1.*(double) rand() / RAND_MAX
+}
+int main() {
+	if (RAND_MAX == INT_MAX) {cout << "YES!"<< endl;}
+	const double Pi =3.141592653589793;
+	while(true) {
+		cout <<"Type trial count : "<<endl;
+		int trial; cin >> trial;
+		if (trial <= 0) break;
+
+		int hit =0, n =0;
+		while(++n <= trial) {// ++n <= trial    n++ < trial;
+
+			double theta =0.5*Pi * drand(); // 0 through Pi/2;
+			if (drand() <= cos(theta)) ++hit;     //if (pow(drand(),2)+pow(drand(),2) <=1) ++hit;
+
+			if(n%100 == 0) {// every 100 times, check the value
+				double est = n* 2./ hit;  // Pi estimate;
+				double dif = Pi- est;
+				cout << setprecision (14) << fixed << setw(5) <<
+						n  << "EST =" << est << ", dif ="<< dif << endl;
+			}
+		}
+
+	}
+	return 0;
+}
