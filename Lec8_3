@@ -1,0 +1,32 @@
+//============================================================================
+// Name        : Lec8.cpp
+// Author      : 
+// Version     :
+// Copyright   : Your copyright notice
+// Description : arriving time
+//============================================================================
+#include <iostream>
+#include <cmath>
+#include <cstdlib>
+#include <iomanip>
+using namespace std;
+
+double drand48(){ // this returns 0 through 1. including 1;
+	return (double) rand() / (1.+RAND_MAX);     // range is from 0 to 1;  1.*(double) rand() / RAND_MAX
+}
+int main() {
+	if (RAND_MAX == INT_MAX) {cout << "YES!"<< endl;}
+	const double Pi =3.141592653589793;
+	while(true) {
+		cout <<"Type trial count : "<<endl;
+		int trial; cin >> trial;
+		if (trial <= 0) break;
+
+		int hit =0, n =0;
+		while (++n <= trial){
+			cout << -10 * log(1 - drand48()) << endl;
+		}
+}
+	cout <<"bye"<<endl;
+	return 0;
+}
