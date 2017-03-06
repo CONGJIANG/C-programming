@@ -1,0 +1,33 @@
+//============================================================================
+// Name        : Lec9.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Newton's Method
+//============================================================================
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <cassert>
+using namespace std;
+
+double f(double x){ return sqrt(x)- sin(x);}  // your function
+double delvf(double x) {return 1/ 2*sqrt(x) - cos(x);}   // derivate
+int main() {
+	const double Pi = 3.141592653;
+	const double Epsilon = 0.000001;
+
+
+	double xn = Pi/5;  // start point;
+	int n=0;
+	double xnp1;
+	do {
+		xnp1 = xn -f(xn)/delvf(xn);     // x n+1 = xn - f(xn)/f'(xn)
+		cout << n <<"\t\t"<<fixed << setprecision(16)<< xnp1 << endl;
+		xn =xnp1;
+		++n;
+	} while (fabs(f(xnp1)) >= Epsilon);
+
+	return 0;
+}
