@@ -1,0 +1,33 @@
+//============================================================================
+// Name        : Lec10.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description :
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+// Creating a palindrome;  ie " race car"
+int main() {
+	string input;
+	cout << "Enter a string : " << endl; cin >> input;
+
+	string reverse;  // roma reverse is amor;  can initializing reverse = ""
+
+
+	for(int tindex = input.length() - 2; tindex >=0; tindex--){
+		reverse += input[tindex];
+	}
+
+#if 0
+	int tindex = input.length() - 2;
+	while (tindex >= 0) {
+		reverse = reverse + input[tindex];
+		tindex =tindex -1;  // --tindex
+	}
+#endif
+	cout << "Palindrome -> " << input + reverse << endl;
+	return 0;
+}
