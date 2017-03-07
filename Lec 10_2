@@ -1,0 +1,49 @@
+//============================================================================
+// Name        : Lec10.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description :
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+// Creating a palindrome;  ie " race car"
+
+bool isPalindrome(string in){
+	bool palindrome = true;
+
+	for (int tindex = in.length()-1, hindex =0;
+			tindex > hindex; --tindex, ++hindex){
+		if(in[tindex] != in[hindex]){
+			palindrome = false;
+			break;
+		}
+	}
+	return palindrome;
+}
+int main() {
+	string input;
+	while(true){
+	cout << "Enter a string : " << endl; cin >> input;
+	if(input == "end")break;
+	cout <<(isPalindrome(input)? "Palindrome!" : "Not a palindrome" )
+		<<endl;
+	cout << "Bye ... "<<endl;
+	}
+	return 0;
+}
+
+#if 0
+	bool palindrome = true;
+
+	for (int tindex = input.length()-1, hindex =0;
+			tindex > hindex; --tindex, ++hindex){
+		if(input[tindex] != input[hindex]){
+			palindrome = false;
+			cout <<"Not a palidrome!"<< endl;
+			break;
+		}
+	}
+#endif
