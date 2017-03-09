@@ -1,0 +1,38 @@
+//============================================================================
+// Name        : Lec11.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Ceasar cipher method
+//============================================================================
+
+#include <iostream>
+#include <cassert>
+using namespace std;
+
+//const string TableU = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM";
+char rot13(const char in){
+	assert(isalpha(in));
+	char inU= toupper(in);
+	inU = inU +13 > 'Z'? inU-13 : inU+13;
+	if(islower(in)) inU= tolower(inU);
+	return inU;
+}
+int main() {
+	cout <<'A'+2<<endl;
+	cout << "Type statement to encript: ";
+	string input;
+	while(true){
+		cin >> input;
+		if(input == "end") break;
+
+		for(int i=0, len=input.length(); i<len; ++i){
+		char c = input[i];
+		cout <<( isalpha(c)? rot13(c) : c);   //) cout << rot13(c);
+
+		}
+		cout << ' ';
+	}
+	cout <<"Bye... ..."<<endl;
+	return 0;
+}
