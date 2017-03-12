@@ -1,0 +1,166 @@
+//
+// Sorting an ASCII string
+//
+
+// Include the necessary libraries
+#include <iostream>
+#include <string>
+#include <vector>
+#include <chrono>
+#include <random>
+#include <algorithm>
+#include <thread>
+#include <functional>
+
+// Function that returns the difference between two strings
+// Takes two const string references as input so that it won't create extra copies
+int stringDifference(const std::string & s1, const std::string & s2) {
+
+	// Create two dummy strings to work with since we don't wanna change the input strings
+	std::string d1 = s1, d2 = s2;
+
+	// Create a distance variable to hold the distance of the two strings
+	int distance = 0;
+
+	// If string1 > string2, fill in string2 with spaces at the end until it matches the size of string1
+	if (d1.size() > d2.size()) {
+		while (d1.size() - d2.size() > 0) d2 += " ";
+	}
+	// If string2 > string1, fill in string1 with spaces at the end until it matches the size of string2
+	else if (d2.size() > d1.size()) {
+		while (d2.size() - d1.size() > 0) d1 += " ";
+	}
+
+	// Iterate in the two strings and get their difference component-wise
+	// Recall that string is an array of characters and thus can access each value using the square bracket index operator like below
+	for (std::size_t i = 0; i < d1.size(); i++) {
+		distance += abs(d1[i] - d2[i]);
+	}
+
+	// Return the distance
+	return distance;
+}
+
+// Global variable to hold the score of the player
+double score = 1'000;
+
+int main() {
+
+	// vector of characters
+	std::vector<char> alphabet;
+
+	// Initialize to the letters of the alphabet
+	// If you want more ASCII symbols, increase the upper bound of the loop 
+	for (int i = 0; i < 26; i++) {
+		alphabet.push_back('A' + i);
+		alphabet.push_back('a' + i);
+	}
+
+
+	// Message for the user to start playing the game
+	std::cout << "*** Let's play the game! ***\n\n";
+	std::cout << "Press ^C to exit\n\n";
+
+	// Variables to count time
+	std::chrono::time_point<std::chrono::system_clock> start, end;
+
+	// The user keeps playing as long as the score is positive or as long as doesn't press ^C
+	while (score > 0) {
+
+		// Do some random suffling in the ASCII character vector to make the game interesting
+		std::random_device rd;
+		std::mt19937 g(rd());
+
+		// Suffle
+		std::shuffle(alphabet.begin(), alphabet.end(), g);
+
+		// String variable to get the pattern
+		std::string pattern;
+
+		// Create some time delay to excite the player (optional)
+		std::cout << "\nPlay in ";
+		for (int i = 3; i > 0; i--) {
+			std::cout << i << " ";
+
+			// Introducing delay
+			std::this_thread::sleep_for(std::chrono::seconds(2));
+		}
+		std::cout << "\n\n";
+
+		// The game begins
+		std::cout << "Your current points are: " << score << " Type in order-> ";
+		for (int j = 0; j < 7; j++) {
+
+			// Get a random pattern for the user to type
+			pattern += alphabet[j];
+		}
+
+		// Print the pattern
+		std::cout << pattern << "\nAnswer:  ";
+
+		// Variable to hold the player's input
+		std::string input;
+
+		// Start counting now
+		start = std::chrono::system_clock::now();
+
+		// The user types the answer
+		std::cin >> input;
+
+		// Stop counting now
+		end = std::chrono::system_clock::now();
+
+		// Compute the total time the player was typing (in seconds)
+		std::chrono::duration<double> elapsed_seconds = (end - start);
+
+		// Convert that time in milliseconds
+		double millisec = elapsed_seconds.count() * 1000;
+
+		// Print the time on screen in milliseconds
+		std::cout << millisec << " milliseconds";
+
+		// Sort the pattern so that the player sees the right answer
+		std::sort(pattern.begin(), pattern.end());
+
+		// Compute the offset of the player's answer
+		int offset = stringDifference(input, pattern);
+
+		// If the player matches the right answer, gets 500 points
+		if (offset == 0) score += 500;
+
+		// If the player made it in time then only loses the offset
+		if (millisec <= 12000) {
+			// Print some game information
+			std::cout << ", you made it within the interval of 12000...\n";
+			std::cout << "Anwer must be: '" << pattern << "'. String offset is: " << offset << ", your penalty is " << offset << "\n";
+
+			// Subtract the offset from the score
+			score -= offset;
+		}
+		else {
+			// If the player hasn't made it in time, then will lose double the offset and also the time difference
+			std::cout << ", you *failed* within the interval of 12000...\n";
+
+			// loss is a variable that holds the total losses (is a negative number)
+			double loss = (12000 - millisec) - (offset * 2);
+
+			// Adding a negative number to the score to penaltize the player
+			score += loss;
+
+			// Print some game info
+			std::cout << "Anwer must be: '" << pattern << "'. String offset is: " << offset << ", your penalty is " << loss << "\n";
+
+		}
+
+		// Print the current score in the screen before the next game
+		if (score > 0) {
+			std::cout << "Your current score is: " << score << "\n\n";
+		}
+		// If the score is negative, end the game
+		else {
+			std::cout << "\n\nGame over!\n\nBye...\n\n";
+		}
+	};
+
+	return 0;
+}
