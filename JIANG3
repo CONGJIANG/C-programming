@@ -1,0 +1,62 @@
+//============================================================================
+// Name        : JIANG3.cpp
+// Author      : CONG JIANG
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Type in Order! Akira's Version
+//============================================================================
+#include <iostream>
+#include <string>
+#include <chrono>
+using namespace std;
+//compute offset
+int offset(string a, string b){
+	int distance=0;
+	if(a.length() > b.length()){while(a.length() - b.length() >0 ) b +=" ";}
+	if(b.length() > a.length()){while(b.length() - a.length() >0 ) b +=" ";} //Actually, we don't know how to deal with under this situation.
+	for(int i=0, len =a.length(); i < len; ++i){
+		distance += abs(a[i] - b[i]);
+	}
+	return distance;
+}
+
+int main() {
+	int allow =1000;
+	while (allow >=0 && allow <5000){
+		cout << "Your current points is " << allow<<",\t";
+//Generating a random string;
+		char s[8]; s[7]='\0';srand(time(0));
+		for(int i=0; i<7; ++i ){
+			char c='a'+rand()%26;
+			int no =rand()%100;         // flip coin and slip to uppercase
+			if(no <50){ s[i]=toupper(c);}
+			else s[i] = c;
+		} cout << "Type in order ->" << s<< endl;
+// recording the string;
+		for(int i=0; i<7; ++i){
+			int minpos =i;
+			for(int j=i; j<7; ++j){
+				minpos = s[j]< s[minpos]? j: minpos;
+			} swap(s[i],s[minpos]);
+		} string st_answer =s; // we acquire the resorted answer. cout << "st_answer is: " << st_answer << endl;
+// setting a timer for your input time;
+		string st_input;
+		cout << "Please type your ordered answer: "<<endl;
+		chrono::steady_clock::time_point begin =chrono::steady_clock::now();
+		cin >> st_input;
+		chrono::steady_clock::time_point end =chrono::steady_clock::now();
+		int Time =chrono::duration_cast<chrono::milliseconds>(end - begin).count();
+		cout << "You use time is "<< Time<<"\tmilliseconds"<<",\t";
+// compute delay and diff(offset);
+		int delay =  Time -12000; if(delay <= 0) {cout <<"you made it within the interval of 12000..."<< endl; } else cout<< "you*failed* it within the interval of 12000..."<<endl;
+		int diff = offset(st_answer, st_input);
+		if(diff > 0){
+			cout << "Answer must be: "<< st_answer <<",\t"<<"String offset is"<< diff << endl;
+			diff = delay > 0 ? diff*2 :diff; int allow_per = allow;
+			allow = delay >0 ? (allow-delay-diff) : (allow - diff); cout << "Your total penalty is" << allow_per-allow<< "..." <<endl;
+		}else if(delay >0) {
+			allow +=500-delay; cout <<"Your total penalty is" << delay <<endl;
+		}allow +=500;
+	} cout << "Bey..." <<endl;
+	return 0;
+}
