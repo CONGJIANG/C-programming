@@ -1,0 +1,48 @@
+//
+// Compute the distance between two strings
+//
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+// Function that returns the difference between two strings
+// Takes two const string references as input so that it won't create extra copies
+int stringDifference(const std::string & s1, const std::string & s2) {
+
+	// Create two dummy strings to work with since we don't wanna change the input strings
+	std::string d1 = s1, d2 = s2;
+
+	// Create a distance variable to hold the distance of the two strings
+	int distance = 0;
+
+	// If string1 > string2, fill in string2 with spaces at the end until it matches the size of string1
+	if (d1.size() > d2.size()) {
+		while (d1.size() - d2.size() > 0) d2 += " ";
+	}
+	// If string2 > string1, fill in string1 with spaces at the end until it matches the size of string2
+	else if (d2.size() > d1.size()) {
+		while (d2.size() - d1.size() > 0) d1 += " ";
+	}
+	
+	// Iterate in the two strings and get their difference component-wise
+	// Recall that string is an array of characters and thus can access each value using the square bracket index operator like below
+	for (std::size_t i = 0; i < d1.size(); i++) {
+		distance += abs(d1[i] - d2[i]);
+	}
+
+	// Return the distance
+	return distance;
+}
+
+int main() {
+
+	// Test using the two input strings below 
+	std::string input1 = "A";
+	std::string input2 = "Z";
+
+	// Call the function on the input above and print the results directly
+	std::cout << stringDifference(input1, input2) << "\n";
+
+	return 0;
+}
